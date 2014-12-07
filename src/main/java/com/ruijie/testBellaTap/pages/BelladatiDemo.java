@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tapestry5.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.belladati.sdk.BellaDati;
 import com.belladati.sdk.BellaDatiConnection;
@@ -16,6 +17,7 @@ public class BelladatiDemo {
 	private static final String SESSION_OAUTH_ATTRIBUTE = "pendingOAuth";
 	private final BellaDatiConnection connection = BellaDati.connect();
 	
+	@Autowired
 	private HttpSession session;
 	
 	@Property
