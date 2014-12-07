@@ -1,0 +1,52 @@
+<html t:type="layout" title="Belladati API demo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p>A demo for Belladati API</p>
+    <p>${a}</p>
+    <!-- h1>${dataset.name}</h1>
+	<div>
+		<div class="wrapper">
+			<span class="title">Description</span>
+			${dataset.description}
+		</div>
+		
+		<div class="wrapper">
+			<span class="title">Owner Name</span>
+			${dataset.ownerName}
+		</div>
+		
+		<div class="wrapper">
+			<span class="title">Last Change</span>
+			${dataset.lastChange}
+		</div>
+	
+		<div class="wrapper">
+			<span class="title">Indicators</span>
+		<c:forEach var="indicator" items="${dataset.indicators}">
+			<div id="${indicator.id}">
+				${indicator.name}
+			</div>
+		</c:forEach>
+		</div>
+		
+		<div class="wrapper">
+			<span class="title">Attributes</span>
+		<c:forEach var="attr" items="${dataset.attributes}">
+			<div id="${attr.id}">
+				${attr.name}
+			</div>
+		</c:forEach>
+		</div>
+		
+		<div class="wrapper">
+			<span class="title">Reports</span>
+		<c:forEach var="report" items="${dataset.reports}">
+			<div id="${report.id}">
+				${report.name}
+			</div>
+		</c:forEach>
+		</div>
+	</div-->
+
+</html>
