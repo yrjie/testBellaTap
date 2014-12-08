@@ -4,49 +4,56 @@
 
     <p>A demo for Belladati API</p>
     <p>${a}</p>
-    <!-- h1>${dataset.name}</h1>
-	<div>
-		<div class="wrapper">
-			<span class="title">Description</span>
-			${dataset.description}
-		</div>
-		
-		<div class="wrapper">
-			<span class="title">Owner Name</span>
-			${dataset.ownerName}
-		</div>
-		
-		<div class="wrapper">
-			<span class="title">Last Change</span>
-			${dataset.lastChange}
-		</div>
-	
-		<div class="wrapper">
-			<span class="title">Indicators</span>
-		<c:forEach var="indicator" items="${dataset.indicators}">
-			<div id="${indicator.id}">
-				${indicator.name}
+    <p>${s1}</p>
+    
+    <div><t:actionlink t:id="login">Log in</t:actionlink></div>
+    
+    <div><t:actionlink t:id="showdataset">Show Dataset</t:actionlink></div>
+    
+    <t:if test="loggedIn">
+	    <h1>${dataset.name}</h1>
+		<div>
+			<div class="wrapper">
+				<span class="title">Description</span>
+				${dataset.description}
 			</div>
-		</c:forEach>
-		</div>
-		
-		<div class="wrapper">
-			<span class="title">Attributes</span>
-		<c:forEach var="attr" items="${dataset.attributes}">
-			<div id="${attr.id}">
-				${attr.name}
+			
+			<div class="wrapper">
+				<span class="title">Owner Name</span>
+				${dataset.ownerName}
 			</div>
-		</c:forEach>
-		</div>
-		
-		<div class="wrapper">
-			<span class="title">Reports</span>
-		<c:forEach var="report" items="${dataset.reports}">
-			<div id="${report.id}">
-				${report.name}
+			
+			<div class="wrapper">
+				<span class="title">Last Change</span>
+				${dataset.lastChange}
 			</div>
-		</c:forEach>
+		
+			<!--div class="wrapper">
+				<span class="title">Indicators</span>
+			<t:loop source=${dataset.indicators} value=${indicator}>
+				<div id=${indicator.id}>
+					${indicator.name}
+				</div>
+			</t:loop>
+			
+			<div class="wrapper">
+				<span class="title">Attributes</span>
+			<c:forEach var="attr" items="${dataset.attributes}">
+				<div id="${attr.id}">
+					${attr.name}
+				</div>
+			</c:forEach>
+			</div>
+			
+			<div class="wrapper">
+				<span class="title">Reports</span>
+			<c:forEach var="report" items="${dataset.reports}">
+				<div id="${report.id}">
+					${report.name}
+				</div>
+			</c:forEach>
+			</div-->
 		</div>
-	</div-->
+	</t:if>
 
 </html>
