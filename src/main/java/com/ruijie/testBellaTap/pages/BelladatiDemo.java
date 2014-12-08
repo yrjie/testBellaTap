@@ -50,6 +50,7 @@ public class BelladatiDemo {
 	private BellaDatiService s2;
 	
 	@Property
+	@Persist
 	private String s1;
 	
 	private String getDeploymentUrl(HttpServletRequest request) {
