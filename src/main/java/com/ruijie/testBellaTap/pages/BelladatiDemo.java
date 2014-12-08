@@ -23,15 +23,17 @@ public class BelladatiDemo {
 	private final BellaDatiConnection connection = BellaDati.connect();
 	
 	@Property
+	@Persist
 	private DataSet dataset;
 	
 	@Property
 	private int a;
 	
 	@Property
-	//@SessionAttribute(SESSION_OAUTH_ATTRIBUTE)
+	@SessionAttribute(SESSION_OAUTH_ATTRIBUTE)
 	private OAuthRequest request;
 	
+	//@Property
 	//@SessionAttribute(SESSION_SERVICE_ATTRIBUTE)
 	//BellaDatiService service;
 	
@@ -65,7 +67,6 @@ public class BelladatiDemo {
 		str1="311aa";
 		//s1=(String)session.getAttribute("testStr");
 		s1=session.toString();
-		session.setAttribute(SESSION_OAUTH_ATTRIBUTE, request);
 		return request;
 	}
 	

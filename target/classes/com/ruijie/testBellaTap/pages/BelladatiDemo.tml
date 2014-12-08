@@ -27,32 +27,7 @@
 				<span class="title">Last Change</span>
 				${dataset.lastChange}
 			</div>
-		
-			<!--div class="wrapper">
-				<span class="title">Indicators</span>
-			<t:loop source=${dataset.indicators} value=${indicator}>
-				<div id=${indicator.id}>
-					${indicator.name}
-				</div>
-			</t:loop>
 			
-			<div class="wrapper">
-				<span class="title">Attributes</span>
-			<c:forEach var="attr" items="${dataset.attributes}">
-				<div id="${attr.id}">
-					${attr.name}
-				</div>
-			</c:forEach>
-			</div>
-			
-			<div class="wrapper">
-				<span class="title">Reports</span>
-			<c:forEach var="report" items="${dataset.reports}">
-				<div id="${report.id}">
-					${report.name}
-				</div>
-			</c:forEach>
-			</div-->
 		</div>
 	</t:if>
 
