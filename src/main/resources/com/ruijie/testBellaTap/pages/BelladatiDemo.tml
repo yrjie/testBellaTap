@@ -10,25 +10,27 @@
     
     <div><t:actionlink t:id="showdataset">Show Dataset</t:actionlink></div>
     
+    <div><t:actionlink t:id="authorize">aut</t:actionlink></div>
+    
     <t:if test="loggedIn">
-	    <h1>${dataset.name}</h1>
-		<div>
-			<div class="wrapper">
-				<span class="title">Description</span>
-				${dataset.description}
-			</div>
-			
-			<div class="wrapper">
-				<span class="title">Owner Name</span>
-				${dataset.ownerName}
-			</div>
-			
-			<div class="wrapper">
-				<span class="title">Last Change</span>
-				${dataset.lastChange}
-			</div>
-			
-		</div>
+    <div>
+    	<tr>Dashboard: ${DashboardInfo.size()}</tr>
+    	<t:loop source="DashboardInfo" value="dbi">
+    		<tr>${dbi.id}</tr>
+		</t:loop>
+    	
+    	<p>Report: ${reportinfo.size()}
+    	<t:loop source="ReportInfo" value="rpi">
+    		<br>${rpi.id}</br>
+		</t:loop>
+    	</p>
+    	
+    	<p>Dataset: ${datasetinfo.size()}
+    	<t:loop source="DataSetInfo" value="dsi">
+    		<br>${dsi.id}</br>
+		</t:loop>
+		</p>
+	</div>
 	</t:if>
 
 </html>
