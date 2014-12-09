@@ -1,16 +1,12 @@
 <html t:type="layout" title="Belladati API demo"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
-
-    <p>A demo for Belladati API</p>
-    <p>${a}</p>
-    <p>${s1}</p>
     
+    <t:if test="loggedIn" negate="true">
     <div><t:actionlink t:id="login">Log in</t:actionlink></div>
+    </t:if>
     
-    <div><t:actionlink t:id="showdataset">Show Dataset</t:actionlink></div>
-    
-    <div><t:actionlink t:id="authorize">aut</t:actionlink></div>
+    <div><t:actionlink t:id="authorize"></t:actionlink></div>
     
     <t:if test="loggedIn">
     <div>
@@ -30,6 +26,8 @@
     		<br>${dsi.id}</br>
 		</t:loop>
 		</p>
+		
+		<t:actionlink t:id="logout">Log out</t:actionlink>
 	</div>
 	</t:if>
 

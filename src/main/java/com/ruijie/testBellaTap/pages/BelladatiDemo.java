@@ -94,6 +94,10 @@ public class BelladatiDemo {
 		return req.getAuthorizationUrl();
 	}
 	
+	void onActionFromLogout(){
+		storeService(null);
+	}
+	
 	public BellaDatiService getService() {
 		return (BellaDatiService) session.getAttribute(SESSION_SERVICE_ATTRIBUTE);
 	}
@@ -103,16 +107,16 @@ public class BelladatiDemo {
 		//return dataset!=null;
 	}
 	
-	void onActionFromShowDataset(){
-		String datasetId="18812";
+//	void onActionFromShowDataset(){
+//		String datasetId="18812";
 //		BellaDatiService service = ((OAuthRequest)session.getAttribute(SESSION_OAUTH_ATTRIBUTE)).requestAccess();
 //		session.setAttribute(SESSION_SERVICE_ATTRIBUTE, service);
-		dataset=((BellaDatiService)session.getAttribute(SESSION_SERVICE_ATTRIBUTE)).loadDataSet(datasetId);
-	}
+//		dataset=((BellaDatiService)session.getAttribute(SESSION_SERVICE_ATTRIBUTE)).loadDataSet(datasetId);
+//	}
 	
 	URL onActionFromAuthorize(){
 		BellaDatiService service = ((OAuthRequest)session.getAttribute(SESSION_OAUTH_ATTRIBUTE)).requestAccess();
-		session.setAttribute(SESSION_SERVICE_ATTRIBUTE, service);
+		storeService(service);
 		try {
 			URL redir=new URL("http://localhost:8080/testBellaTap/belladatidemo");
 			return redir;
@@ -142,6 +146,10 @@ public class BelladatiDemo {
 		if (service!=null)
 			return service.getDataSetInfo().load().toList();
 		return null;
+	}
+	
+	private void storeService(BellaDatiService service) {
+		session.setAttribute(SESSION_SERVICE_ATTRIBUTE, service);
 	}
 	
 	@BeginRender
