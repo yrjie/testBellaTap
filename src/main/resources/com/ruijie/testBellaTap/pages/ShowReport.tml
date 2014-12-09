@@ -1,7 +1,11 @@
-<html t:type="layout" title="Contact com.ruijie"
+<html t:type="layout" title="Show Report"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>Contact com.ruijie ...</p>
+	<t:if test="loggedin" negate="true">
+	<meta http-equiv="refresh" content="0; url=belladatidemo" />
+    </t:if>
+    
+    <p>${id}</p>
 
 </html>

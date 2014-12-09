@@ -20,14 +20,14 @@
     	<h>Report</h>
     	<ul>
     	<t:loop source="ReportInfo" value="rpi">
-    		<li>${rpi.name}</li>
+    		<li><a href="showreport?id=${rpi.id}">${rpi.name}</a></li>
 		</t:loop>
     	</ul>
     	
     	<h>Dataset</h>
     	<ul>
     	<t:loop source="DataSetInfo" value="dsi">
-    		<li>${dsi.name}</li>
+    		<li><a href="showdataset?id=${dsi.id}">${dsi.name}</a></li>
 		</t:loop>
 		</ul>
 		

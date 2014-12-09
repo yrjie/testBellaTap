@@ -2,7 +2,30 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-	<t:test id="loggedin"
-    <p>${id}</p>
+<script type="text/javascript" src="${context:js/raphael.js}"></script>
+<script type="text/javascript" src="${context:js/charts.js}"></script>
+<script type="text/javascript" src="${context:js/loader.js}"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>jQuery.noConflict();</script>
 
+	<t:if test="loggedin" negate="true">
+	<meta http-equiv="refresh" content="0; url=belladatidemo" />
+    </t:if>
+    
+    <p>${s1}</p>
+    <t:if test="loggedin">
+	    <p>${dashboard.name}</p>
+	    
+	    <div>
+			<t:loop source="dashboard.dashlets" value="dashlet">
+				
+					<div class="wrapper" data-view-id="${dashlet.content}">
+						<span class="title">${dashlet.content}</span>
+						<div class="content chart" id="chart-${dashlet.content}"></div>
+					</div>
+				
+			</t:loop>
+		</div>
+	</t:if>
+		
 </html>

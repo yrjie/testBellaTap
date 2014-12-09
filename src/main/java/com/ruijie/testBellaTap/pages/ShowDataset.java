@@ -14,11 +14,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
 
-import com.belladati.sdk.BellaDatiService;
-import com.belladati.sdk.dashboard.Dashboard;
-import com.belladati.sdk.dashboard.Dashlet;
-
-public class ShowDashboard {
+public class ShowDataset {
 	
 	private static final String SESSION_SERVICE_ATTRIBUTE = "BellaDatiService";
 	private static final String SESSION_OAUTH_ATTRIBUTE = "pendingOAuth";
@@ -30,17 +26,6 @@ public class ShowDashboard {
 	@Persist
 	String id;
 	
-	@Property
-	@Persist
-	Dashboard dashboard;
-	
-	@Property
-	Dashlet _dashlet;
-	
-	@Property
-	@Persist
-	String s1;
-	
 	@Persist
 	private Session session;
 	
@@ -48,17 +33,9 @@ public class ShowDashboard {
 		return session.getAttribute(SESSION_SERVICE_ATTRIBUTE)!=null;
 	}
 	
-	public BellaDatiService getService() {
-		return (BellaDatiService) session.getAttribute(SESSION_SERVICE_ATTRIBUTE);
-	}
-	
 	@BeginRender
 	void doBeginRender() {
 		id=request.getParameter("id");
 		session=request.getSession(true);
-		if (getLoggedIn()){
-			dashboard=getService().loadDashboard(id);
-			s1=dashboard.getDashlets().get(0).getContent().getClass().getName();
-		}
 	}
 }
