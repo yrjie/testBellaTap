@@ -10,22 +10,26 @@
     
     <t:if test="loggedIn">
     <div>
-    	<tr>Dashboard: ${DashboardInfo.size()}</tr>
+    	<h>Dashboard</h>
+    	<ul>
     	<t:loop source="DashboardInfo" value="dbi">
-    		<tr>${dbi.id}</tr>
+    		<li><a href="showdashboard?id=${dbi.id}">${dbi.name}</a></li>
 		</t:loop>
+		</ul>
     	
-    	<p>Report: ${reportinfo.size()}
+    	<h>Report</h>
+    	<ul>
     	<t:loop source="ReportInfo" value="rpi">
-    		<br>${rpi.id}</br>
+    		<li>${rpi.name}</li>
 		</t:loop>
-    	</p>
+    	</ul>
     	
-    	<p>Dataset: ${datasetinfo.size()}
+    	<h>Dataset</h>
+    	<ul>
     	<t:loop source="DataSetInfo" value="dsi">
-    		<br>${dsi.id}</br>
+    		<li>${dsi.name}</li>
 		</t:loop>
-		</p>
+		</ul>
 		
 		<t:actionlink t:id="logout">Log out</t:actionlink>
 	</div>

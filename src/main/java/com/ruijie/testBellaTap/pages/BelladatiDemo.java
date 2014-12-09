@@ -37,9 +37,8 @@ public class BelladatiDemo {
 	@Property
 	private int a;
 	
-	@Property
 	@SessionAttribute(SESSION_OAUTH_ATTRIBUTE)
-	private OAuthRequest request;
+	private OAuthRequest authrequest;
 	
 	//@Property
 	//@SessionAttribute(SESSION_SERVICE_ATTRIBUTE)
@@ -49,13 +48,10 @@ public class BelladatiDemo {
 	String str1="";
 	
 	@Inject
-	private Request request1;
+	private Request request;
 	
 	@Persist
 	private Session session;
-	
-	@Property
-	private BellaDatiService s2;
 	
 	@Property
 	@Persist
@@ -70,22 +66,16 @@ public class BelladatiDemo {
 	@Property
 	private DataSetInfo _dsi;
 	
-	private String getDeploymentUrl(HttpServletRequest request) {
-		String requestUrl = request.getRequestURL().toString();
-		String servletPath = request.getServletPath();
-		return requestUrl.substring(0, requestUrl.length() - servletPath.length());
-	}
-	
 	public OAuthRequest initiateOAuth(String redirectUrl) {
 		//OAuthRequest request = connection.oAuth("techKey", "techSecret", redirectUrl);
-		request = connection.oAuth("techKey", "techSecret", "http://localhost:8080/testBellaTap/belladatidemo.authorize");
+		authrequest = connection.oAuth("techKey", "techSecret", "http://localhost:8080/testBellaTap/belladatidemo.authorize");
 		//service = request.requestAccess();
 		//session.setAttribute(SESSION_OAUTH_ATTRIBUTE, request);
 		//s1=(BellaDatiService)request1.getSession(false).getAttribute(SESSION_SERVICE_ATTRIBUTE);
 		str1="311aa";
 		//s1=(String)session.getAttribute("testStr");
-		s1=request1.getPath();
-		return request;
+		s1=request.getPath();
+		return authrequest;
 	}
 	
 	URL onActionFromLogin(){
@@ -104,7 +94,6 @@ public class BelladatiDemo {
 	
 	public boolean getLoggedIn(){
 		return session.getAttribute(SESSION_SERVICE_ATTRIBUTE)!=null;
-		//return dataset!=null;
 	}
 	
 //	void onActionFromShowDataset(){
@@ -155,6 +144,6 @@ public class BelladatiDemo {
 	@BeginRender
 	void doBeginRender() {
 		a=10;
-		session=request1.getSession(true);
+		session=request.getSession(true);
 	}
 }
