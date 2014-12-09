@@ -1,12 +1,18 @@
-<html t:type="layout" title="Show Dashboard"
+<html t:type="layout1" title="Show Dashboard"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
 <script type="text/javascript" src="${context:js/raphael.js}"></script>
 <script type="text/javascript" src="${context:js/charts.js}"></script>
 <script type="text/javascript" src="${context:js/loader.js}"></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>jQuery.noConflict();</script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+<script type="text/javascript">
+window.onload=function(){
+loadViews('/testBellaTap');
+};
+</script>
 
 	<t:if test="loggedin" negate="true">
 	<meta http-equiv="refresh" content="0; url=belladatidemo" />
