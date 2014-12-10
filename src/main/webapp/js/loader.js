@@ -7,7 +7,7 @@ function loadViews(basePath) {
 
 function loadViewContent(wrapper, basePath, interval, filterValues) {
 	var id = wrapper.data("view-id"); // ID of the chart
-	var url = basePath + "/chart/" + id;
+	var url = basePath + "/showchart?id="+id;
 	var $container = wrapper.find(".chart");
 	
 	// clear any existing content from the chart container

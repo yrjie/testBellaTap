@@ -1,4 +1,4 @@
-<html t:type="layout1" title="Show Dashboard"
+<html t:type="layout" title="Show Dashboard"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
@@ -25,9 +25,9 @@ loadViews('/testBellaTap');
 	    <div>
 			<t:loop source="dashboard.dashlets" value="dashlet">
 				
-					<div class="wrapper" data-view-id="${dashlet.content}">
+					<div class="wrapper" data-view-id="30749-TSltziezW2">
 						<span class="title">${dashlet.content}</span>
-						<div class="content chart" id="chart-${dashlet.content}"></div>
+						<div class="content chart" id="chart-30749-TSltziezW2"></div>
 					</div>
 				
 			</t:loop>
