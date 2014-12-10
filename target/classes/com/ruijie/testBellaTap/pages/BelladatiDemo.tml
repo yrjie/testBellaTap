@@ -4,6 +4,7 @@
     
     <t:if test="loggedIn" negate="true">
     <div><t:actionlink t:id="login">Log in</t:actionlink></div>
+    <div class="login-hint">Try logging in as <strong>api-demo@belladati.com</strong> with password <strong>apiDemo1</strong>.</div>
     </t:if>
     
     <div><t:actionlink t:id="authorize"></t:actionlink></div>

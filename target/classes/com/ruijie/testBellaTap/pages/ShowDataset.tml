@@ -26,7 +26,7 @@
 			<p>
 			<div class="wrapper">
 				<span class="title">Last Change</span>
-				${dataset.lastChange}
+				<div>${dataset.lastChange}</div>
 			</div>
 			</p>
 		

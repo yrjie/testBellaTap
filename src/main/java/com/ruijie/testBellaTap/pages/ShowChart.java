@@ -94,7 +94,6 @@ public class ShowChart {
 		}
 
 		// load the chart
-		//return (JSONObject) loader.loadContent();
 		return new TextStreamResponse("application/json", loader.loadContent().toString());
 	}
 }
