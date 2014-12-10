@@ -6,6 +6,63 @@
 	<meta http-equiv="refresh" content="0; url=belladatidemo" />
     </t:if>
     
-    <p>${id}</p>
+    <t:if test="loggedin">
+    	<h1>${dataset.name}</h1>
+		<div>
+			<p>
+			<div class="wrapper">
+				<span class="title">Description</span>
+				<div>${dataset.description}</div>
+			</div>
+			</p>
+			
+			<p>
+			<div class="wrapper">
+				<span class="title">Owner Name</span>
+				<div>${dataset.ownerName}</div>
+			</div>
+			</p>
+			
+			<p>
+			<div class="wrapper">
+				<span class="title">Last Change</span>
+				${dataset.lastChange}
+			</div>
+			</p>
+		
+			<p>
+			<div class="wrapper">
+				<span class="title">Indicators</span>
+			<t:loop source="dataset.indicators" value="indicator">
+				<div id="${indicator.id}">
+					${indicator.name}
+				</div>
+			</t:loop>
+			</div>
+			</p>
+			
+			<p>
+			<div class="wrapper">
+				<span class="title">Attributes</span>
+			<t:loop source="dataset.attributes" value="attr">
+				<div id="${attr.id}">
+					${attr.name}
+				</div>
+			</t:loop>
+			</div>
+			</p>
+			
+			<p>
+			<div class="wrapper">
+				<span class="title">Reports</span>
+			<t:loop source="dataset.reports" value="report">
+				<div id="${report.id}">
+					${report.name}
+				</div>
+			</t:loop>
+			</div>
+			</p>
+		</div>
+	</t:if>
 
 </html>

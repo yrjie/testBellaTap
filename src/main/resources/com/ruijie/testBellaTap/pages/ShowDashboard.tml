@@ -18,18 +18,17 @@ loadViews('/testBellaTap');
 	<meta http-equiv="refresh" content="0; url=belladatidemo" />
     </t:if>
     
-    <p>${s1}</p>
     <t:if test="loggedin">
-	    <p>${dashboard.name}</p>
+	    <h1>${dashboard.name}</h1>
 	    
 	    <div>
-			<t:loop source="dashboard.dashlets" value="dashlet">
-				
-					<div class="wrapper" data-view-id="30749-TSltziezW2">
-						<span class="title">${dashlet.content}</span>
-						<div class="content chart" id="chart-30749-TSltziezW2"></div>
+			<t:loop source="dashletConts" value="content">
+				<p>
+					<div class="wrapper" data-view-id="${content.id}">
+						<strong><span class="title">${content.name}</span></strong>
+						<div class="content chart" id="chart-${content.id}"></div>
 					</div>
-				
+				</p>
 			</t:loop>
 		</div>
 	</t:if>

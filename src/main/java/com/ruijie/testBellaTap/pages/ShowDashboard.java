@@ -2,6 +2,7 @@ package com.ruijie.testBellaTap.pages;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -17,6 +18,8 @@ import org.apache.tapestry5.services.Session;
 import com.belladati.sdk.BellaDatiService;
 import com.belladati.sdk.dashboard.Dashboard;
 import com.belladati.sdk.dashboard.Dashlet;
+import com.belladati.sdk.view.JsonView;
+import com.belladati.sdk.view.View;
 
 public class ShowDashboard {
 	
@@ -35,14 +38,14 @@ public class ShowDashboard {
 	Dashboard dashboard;
 	
 	@Property
-	Dashlet _dashlet;
-	
-	@Property
-	@Persist
-	String s1;
+	JsonView _content;
 	
 	@Persist
 	private Session session;
+	
+	@Property
+	@Persist
+	List<JsonView> dashletConts;
 	
 	public boolean getLoggedIn(){
 		return session.getAttribute(SESSION_SERVICE_ATTRIBUTE)!=null;
@@ -58,7 +61,11 @@ public class ShowDashboard {
 		session=request.getSession(true);
 		if (getLoggedIn()){
 			dashboard=getService().loadDashboard(id);
-			s1=dashboard.getDashlets().get(0).getContent().getClass().getName();
+			dashletConts=new ArrayList<JsonView>();
+			for (Dashlet i : dashboard.getDashlets()){
+				if (i.getType().toString()=="VIEW"&&((View)i.getContent()).getType().toString()=="CHART")
+					dashletConts.add((JsonView)i.getContent());
+			}
 		}
 	}
 }

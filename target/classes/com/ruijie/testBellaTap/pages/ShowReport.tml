@@ -2,10 +2,47 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
+<script type="text/javascript" src="${context:js/raphael.js}"></script>
+<script type="text/javascript" src="${context:js/charts.js}"></script>
+<script type="text/javascript" src="${context:js/loader.js}"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script type="text/javascript">
+window.onload=function(){
+loadViews('/testBellaTap');
+};
+</script>
+
 	<t:if test="loggedin" negate="true">
 	<meta http-equiv="refresh" content="0; url=belladatidemo" />
     </t:if>
     
-    <p>${id}</p>
+    <t:if test="loggedin">
+    <h1>${report.name}</h1>
+    
+    <t:if test="${attrValues}">
+    	<div class="filter-select">
+			<t:loop source="attrValues" value="value">
+				<t:if test="${value.value}">
+					<div class="filter-item">
+						<input type="checkbox" class="filter-value" id="${value.value}" name="${value.value}" />
+						<label for="${value.value}">${value.label}</label>
+					</div>
+				</t:if>
+			</t:loop>
+		</div>
+	</t:if>
+	
+	<div>
+		<t:loop source="views" value="view">
+			<p>
+				<div class="wrapper" data-view-id="${view.id}">
+					<strong><span class="title">${view.name}</span></strong>
+					<div class="content chart" id="chart-${view.id}"></div>
+				</div>
+			</p>
+		</t:loop>
+	</div>
+	</t:if>
 
 </html>
