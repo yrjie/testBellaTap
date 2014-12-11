@@ -18,7 +18,7 @@ loadViews('/testBellaTap');
 	    <div>
 			<t:loop source="dashletConts" value="content">
 				<p>
-					<div class="wrapper" data-view-id="${content.id}">
+					<div class="wrapper" data-view-id="${content.id}" data-view-name="${content.name}">
 						<strong><span class="title">${content.name}</span></strong>
 						<div class="content chart" id="chart-${content.id}"></div>
 						<div id="hc-${content.id}"></div>

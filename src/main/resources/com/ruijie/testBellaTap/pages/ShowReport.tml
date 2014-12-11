@@ -31,9 +31,10 @@ loadViews('/testBellaTap');
 	<div>
 		<t:loop source="views" value="view">
 			<p>
-				<div class="wrapper" data-view-id="${view.id}">
+				<div class="wrapper" data-view-id="${view.id}" data-view-name="${view.name}">
 					<strong><span class="title">${view.name}</span></strong>
 					<div class="content chart" id="chart-${view.id}"></div>
+					<div id="hc-${view.id}"></div>
 				</div>
 			</p>
 		</t:loop>

@@ -5,7 +5,7 @@ function loadViews(basePath) {
 	});
 }
 
-function convertHcBar(old){
+function convertHcBar(old, title){
 	var ret={};
 	id=old.chartId.split('chart_')[1].split('_')[0];
 	ret.chart={};
@@ -13,14 +13,14 @@ function convertHcBar(old){
 	ret.chart.type='column';
 	
 	ret.title={};
-	ret.title.text='test';
+	ret.title.text=title;
 	
 	ret.credits={};
 	ret.credits.enabled=false;
 	
-	ret.yAxis={};
-	ret.yAxis.title={};
-	ret.yAxis.title.text='testY';
+//	ret.yAxis={};
+//	ret.yAxis.title={};
+//	ret.yAxis.title.text='testY';
 	
 	ret.xAxis={};
 	ret.xAxis.categories=old.x_axis.labels.labels;
@@ -32,7 +32,45 @@ function convertHcBar(old){
 		ret.series[i].name=old.elements[i].text;
 		ret.series[i].data=[];
 		for (var j=0; j<old.elements[i].values.length; j++){
-			ret.series[i].data.push(old.elements[i].values[j].top);
+			if (old.elements[i].values[j]==null)
+				ret.series[i].data.push(null);
+			else ret.series[i].data.push(old.elements[i].values[j].top);
+		}
+	}	
+	return ret;
+}
+
+function convertHcLine(old, title){
+	var ret={};
+	id=old.chartId.split('chart_')[1].split('_')[0];
+	ret.chart={};
+	ret.chart.renderTo='hc-'+id;
+	
+	ret.title={};
+	ret.title.text=title;
+	
+	ret.credits={};
+	ret.credits.enabled=false;
+	
+//	ret.yAxis={};
+//	ret.yAxis.title={};
+//	ret.yAxis.title.text='testY';
+	
+	ret.xAxis={};
+	ret.xAxis.categories=old.x_axis.labels.labels;
+	
+	ret.series=[];
+	
+	for (var i=0; i<old.elements.length; i++){
+		if (old.elements[i].values==null)
+			continue;
+		ret.series.push({});
+		ret.series[i].name=old.elements[i].text;
+		ret.series[i].data=[];
+		for (var j=0; j<old.elements[i].values.length; j++){
+			if (old.elements[i].values[j]==null)
+				ret.series[i].data.push(null);
+			else ret.series[i].data.push(old.elements[i].values[j].value);
 		}
 	}	
 	return ret;
@@ -40,8 +78,10 @@ function convertHcBar(old){
 
 function loadViewContent(wrapper, basePath, interval, filterValues) {
 	var id = wrapper.data("view-id"); // ID of the chart
+	var title = wrapper.data("view-name");  // title of the chart
 	var url = basePath + "/showchart?id="+id;
 	var $container = wrapper.find(".chart");
+	var chart_hc;
 	
 	// clear any existing content from the chart container
 	$container.empty();
@@ -50,13 +90,19 @@ function loadViewContent(wrapper, basePath, interval, filterValues) {
 	$.get(url, { interval: JSON.stringify(interval), filterValues: JSON.stringify(filterValues) }, function(response) {
 		
 		// create the chart and display it
+		console.time('old');
 		var chart = Charts.create("chart-" + id, response.content);
 		chart.resize($container.width(), $container.height());
-		if (response.content.elements[0].type=='bar'){
-			hc_data=convertHcBar(response.content);
-			console.log(hc_data);
-			var chart_hc = new Highcharts.Chart(hc_data);
-		}
+		console.timeEnd('old');
+		
+		// create highcharts
+		console.time('highchart');
+		if (response.content.elements[0].type=='bar')
+			hc_data=convertHcBar(response.content, title);
+		else if (response.content.elements[0].type=='line')
+			hc_data=convertHcLine(response.content, title);
+		(hc_data!=null) && (chart_hc = new Highcharts.Chart(hc_data));
+		console.timeEnd('highchart');
 	});
 }
 
