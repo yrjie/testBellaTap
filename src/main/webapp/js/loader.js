@@ -5,12 +5,12 @@ function loadViews(basePath) {
 	});
 }
 
-function convertHcBar(old, title){
+function convertHc(old, title, type){
 	var ret={};
 	id=old.chartId.split('chart_')[1].split('_')[0];
 	ret.chart={};
 	ret.chart.renderTo='hc-'+id;
-	ret.chart.type='column';
+	ret.chart.type=type;
 	
 	ret.title={};
 	ret.title.text=title;
@@ -34,45 +34,66 @@ function convertHcBar(old, title){
 		for (var j=0; j<old.elements[i].values.length; j++){
 			if (old.elements[i].values[j]==null)
 				ret.series[i].data.push(null);
-			else ret.series[i].data.push(old.elements[i].values[j].top);
+			else if (type=='column')
+				ret.series[i].data.push(old.elements[i].values[j].top);
+			else if (type=='line')
+				ret.series[i].data.push(old.elements[i].values[j].value);
 		}
 	}	
 	return ret;
 }
 
-function convertHcLine(old, title){
+function convertEc(old, title, type){
 	var ret={};
-	id=old.chartId.split('chart_')[1].split('_')[0];
-	ret.chart={};
-	ret.chart.renderTo='hc-'+id;
+	
+	ret.toolbox={
+	        show : true,
+	        feature : {
+	            mark : {show: true},
+	            dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    };
+	
+	ret.tooltip ={
+        trigger: 'axis'
+    };
 	
 	ret.title={};
 	ret.title.text=title;
 	
-	ret.credits={};
-	ret.credits.enabled=false;
+	ret.xAxis=[];
+	ret.xAxis.push({});
+	ret.xAxis[0].type='category';
+	ret.xAxis[0].data=old.x_axis.labels.labels;
 	
-//	ret.yAxis={};
-//	ret.yAxis.title={};
-//	ret.yAxis.title.text='testY';
-	
-	ret.xAxis={};
-	ret.xAxis.categories=old.x_axis.labels.labels;
+	ret.yAxis=[];
+	ret.yAxis.push({});
+	ret.yAxis[0].type='value';
 	
 	ret.series=[];
 	
+	ret.legend={};
+	ret.legend.data=[];
+	
 	for (var i=0; i<old.elements.length; i++){
-		if (old.elements[i].values==null)
-			continue;
 		ret.series.push({});
 		ret.series[i].name=old.elements[i].text;
+		ret.legend.data.push(ret.series[i].name);
+		ret.series[i].type=type;
 		ret.series[i].data=[];
 		for (var j=0; j<old.elements[i].values.length; j++){
 			if (old.elements[i].values[j]==null)
-				ret.series[i].data.push(null);
-			else ret.series[i].data.push(old.elements[i].values[j].value);
+				dat=null;
+			else if (type=='bar')
+				dat=old.elements[i].values[j].top;
+			else if (type=='line')
+				dat=old.elements[i].values[j].value;
+			ret.series[i].data.push(dat==null?0:dat);
 		}
-	}	
+	}
 	return ret;
 }
 
@@ -81,7 +102,6 @@ function loadViewContent(wrapper, basePath, interval, filterValues) {
 	var title = wrapper.data("view-name");  // title of the chart
 	var url = basePath + "/showchart?id="+id;
 	var $container = wrapper.find(".chart");
-	var chart_hc;
 	
 	// clear any existing content from the chart container
 	$container.empty();
@@ -98,11 +118,21 @@ function loadViewContent(wrapper, basePath, interval, filterValues) {
 		// create highcharts
 		console.time('highchart');
 		if (response.content.elements[0].type=='bar')
-			hc_data=convertHcBar(response.content, title);
+			hc_data=convertHc(response.content, title, 'column');
 		else if (response.content.elements[0].type=='line')
-			hc_data=convertHcLine(response.content, title);
+			hc_data=convertHc(response.content, title, 'line');
 		(hc_data!=null) && (chart_hc = new Highcharts.Chart(hc_data));
 		console.timeEnd('highchart');
+		
+		// create echarts
+		console.time('echart');
+		if (response.content.elements[0].type=='bar')
+			ec_data=convertEc(response.content, title, 'bar');
+		else if (response.content.elements[0].type=='line')
+			ec_data=convertEc(response.content, title, 'line');
+		var chart_ec = echarts.init(document.getElementById('ec-'+id));
+		chart_ec.setOption(ec_data);
+		console.timeEnd('echart');
 	});
 }
 

@@ -35,6 +35,7 @@ loadViews('/testBellaTap');
 					<strong><span class="title">${view.name}</span></strong>
 					<div class="content chart" id="chart-${view.id}"></div>
 					<div id="hc-${view.id}"></div>
+					<div id="ec-${view.id}" style="height: 400px"></div>
 				</div>
 			</p>
 		</t:loop>
